@@ -1,0 +1,153 @@
+/* ===============================
+   BACKGROUND IMAGE
+================================= */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('../images/jobseecker_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Dark overlay effect */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(209, 210, 214, 0.55);
+    z-index: -1;
+}
+
+/* ===============================
+   NAVBAR STYLING
+================================= */
+/* ===== NAVBAR ===== */
+.navbar {
+    width: 100%;
+    background: #111;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00c853;
+}
+
+/* Add spacing so content doesn't go under navbar */
+body {
+    padding-top: 70px;
+}
+
+/* ===============================
+   MAIN FORM CONTAINER
+================================= */
+.container-box {
+
+    background: rgba(255, 255, 255, 0.15);   /* transparency */
+    backdrop-filter: blur(15px);            /* glass blur */
+    -webkit-backdrop-filter: blur(15px);    /* Safari support */
+    border-radius: 15px;
+    padding: 35px;
+    margin-top: 50px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+.container-box {
+    font-weight: 600;
+    font-size: 17px;
+    color: #ffffff;
+}
+
+.container-box h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.container-box h4 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.container-box label {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.container-box .form-control {
+    font-size: 16px;
+    height: 42px;
+    color: #000;
+    background-color: #fff;
+}
+/* ===============================
+   FORM INPUTS
+================================= */
+.form-control {
+    border-radius: 6px;
+    box-shadow: none;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #5cb85c;
+    box-shadow: 0 0 8px rgba(92, 184, 92, 0.5);
+}
+
+/* ===============================
+   BUTTONS
+================================= */
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    border-radius: 6px;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+================================= */
+@media (max-width: 768px) {
+    .container-box {
+        margin-top: 20px;
+        padding: 20px;
+    }
+}
