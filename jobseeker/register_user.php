@@ -6,108 +6,7 @@
 <title>Applicants Registration</title>
 
 <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
-
-<style>
-body {
-    background: url('../images/jobseecker_bg.jpg') no-repeat center center fixed;
-    background-size: cover;
-    font-family: Arial, sans-serif;
-}
-
-/* Dark overlay */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(6, 29, 43, 0.5);
-    z-index: -1;
-}
-
-.container-box {
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.15);   /* transparency */
-    backdrop-filter: blur(15px);            /* glass blur */
-    -webkit-backdrop-filter: blur(15px);    /* Safari support */
-    border-radius: 15px;
-    padding: 35px;
-    margin-top: 50px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    border: 1px solid rgba(255,255,255,0.3);
-}
-.container-box {
-    font-weight: 600;
-    font-size: 17px;
-    color: #ffffff;
-}
-
-.container-box h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.container-box h4 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.container-box label {
-    font-size: 18px;
-    color: #ffffff;
-}
-
-.container-box .form-control {
-    font-size: 16px;
-    height: 42px;
-    color: #000;
-    background-color: #fff;
-}
-/* ===== NAVBAR ===== */
-.navbar {
-    width: 100%;
-    background: #111;
-    padding: 15px 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-.nav-container {
-    width: 90%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    color: #ffffff;
-    font-size: 22px;
-    font-weight: 600;
-}
-
-.nav-links a {
-    color: #ffffff;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    color: #00c853;
-}
-
-/* Add spacing so content doesn't go under navbar */
-body {
-    padding-top: 70px;
-}
-</style>
+<link rel="stylesheet" href="../css/jobseeker.css">
 
 <script>
 function checkForm() {
@@ -125,14 +24,13 @@ function checkForm() {
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="../index.php">Job Portal</a>
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">JOB NOVA</div>
+    <div class="nav-links">
+      <a href="../index.php">Home</a>
+      <a href="../login.php">Login</a>
     </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="../login.php">Login</a></li>
-    </ul>
   </div>
 </nav>
 
@@ -253,14 +151,4 @@ function checkForm() {
 <script src="../js/bootstrap.min.js"></script>
 
 </body>
-<!-- Navigation Bar -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo">JOB NOVA</div>
-        <div class="nav-links">
-            <a href="../index.php">Home</a>
-            <a href="../login.php">Login</a>
-        </div>
-    </div>
-</nav>
 </html>

@@ -1,51 +1,175 @@
+/* ===== NOTION/LINEAR LIGHT THEME: MAIN.CSS (DASHBOARDS & VIEWS) ===== */
 
- td{
-     padding: 12px;
- }    
-body{
-    background:url("paper2.png") center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-     background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-family: Ubuntu ;
-    font-weight: normal;
-    font-size: 18px;
-
-}
-table{
-  background:white;
-  font-size: 16px;
-}
-label{
-  color: black;
-  font-family: consolas;
-}
-body{
-  font-family: ubuntu;
-}
-h2 {
-      font-size: 24px;
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 30px;
-}
-
-label.error{
-    color: crimson;
+body {
+    background: #FFFAE3;
+    color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 16px;
-}
-h3.h3style{
-  color: blue;
-  font-family: ubuntu;
-}
-body.indexbody{
-    background: lawngreen;
-}
-#header{
-    padding: 10px;
-    margin: 10px;
+    margin: 0;
+    padding: 0;
+    padding-top: 80px; /* Offset for fixed navbar */
 }
 
+/* Table styling for light theme */
+table {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    color: #1a1a1a !important;
+    font-size: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+td, th {
+    padding: 14px 18px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+    color: #2c2c2e !important;
+}
+
+th {
+    background: rgba(0, 0, 0, 0.02) !important;
+    color: #1a1a1a !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+/* Headings */
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #1a1a1a;
+}
+
+h3.h3style {
+    color: #5e6ad2 !important;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+/* Forms & Labels */
+label {
+    color: #55555c !important;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+label.error {
+    color: #ff3b30 !important;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.form-control {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    color: #1a1a1a !important;
+    border-radius: 8px !important;
+    height: 42px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #5e6ad2 !important;
+    box-shadow: 0 0 10px rgba(94, 106, 210, 0.15) !important;
+}
+
+/* Buttons */
+.btn-primary, .btn-success {
+    background: #5e6ad2 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover, .btn-success:hover {
+    background: #4d5bc2 !important;
+    box-shadow: 0 5px 15px rgba(94, 106, 210, 0.2);
+}
+
+.btn-danger {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    color: #1a1a1a !important;
+    border-radius: 8px !important;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s;
+}
+
+.btn-danger:hover {
+    background: rgba(0, 0, 0, 0.02) !important;
+}
+
+.btn-default {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    color: #1a1a1a !important;
+    border-radius: 8px !important;
+    padding: 8px 16px;
+    transition: all 0.3s;
+}
+
+.btn-default:hover {
+    background: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Jumbotron/Header Card */
+#header {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+/* Navigation items inside dashboards */
+#insidenav {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding: 10px 0;
+}
+
+#insidenav .navbar-brand {
+    color: #1a1a1a !important;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+}
+
+#insidenav .navbar-nav > li > a {
+    color: #55555c !important;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+#insidenav .navbar-nav > li > a:hover,
+#insidenav .navbar-nav > li.active > a {
+    color: #1a1a1a !important;
+    background: rgba(0, 0, 0, 0.04) !important;
+    border-radius: 6px;
+}

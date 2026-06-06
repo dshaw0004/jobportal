@@ -107,7 +107,7 @@
     <p>Search for Jobs</p>
     <form class="form-inline" id="homesearch">
         <input type="text" class="form-control" size="50" placeholder="Enter your search keyword" name="keyword" id="keyword">
-        <button type="button" onclick="search()" class="btn btn-lg " style="color: black"><span class="glyphicon glyphicon-search"></span> Search</button>
+        <button type="button" onclick="search()" class="btn btn-lg "><span class="glyphicon glyphicon-search"></span> Search</button>
     </form>
 </div>
 </div> <!-- jumbotron -->
@@ -115,11 +115,11 @@
 <div class="container" id="subcontent" style="background: transparent">
     <!-- div for search contents -->
 </div>
-<div class="page-header" style="background:#1abc9c"></div>
+<hr class="page-header">
 <div class="container-fluid" style="background: transparent">
     <div class="text-center">
         <h2>Register</h2>
-        <h4>Register in this website for a better experience</h4>
+        <h4 style="color: #8e8e93; margin-bottom: 40px;">Register in this website for a better experience</h4>
     </div>
     <div class="row">
         <div class="col-sm-4">
@@ -172,10 +172,9 @@
 </div>
 
 
-    <div class="container bg-grey" id="contact">
-        <div class="page-header" style="background: #f4511e"></div>
+    <div class="container" id="contact">
+        <hr class="page-header">
         <h2 class="text-center">CONTACT US</h2>
-        <div class="page-header"></div>
         <div class="row">
             <div class="col-sm-5">
                 <p>Contact us and we'll get back to you within 24 hours.</p>
@@ -204,7 +203,7 @@
     </div> <!-- Contact -->
 
 </div> <!-- sub content -->
- <div class="page-header" style="background: #f4511e"></div>
+ <hr class="page-header">
 </div> <!-- Container -->
 <!-- Set height and width with CSS -->
 <div id="googleMap" style="height:400px;width:100%;"></div>
@@ -244,6 +243,6 @@
     <script src="js/jquery-1.12.0.min.js"></script>
     <script src="js/search.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <link href="css/home.css" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <link href="css/home.css" rel="stylesheet">
 </html>

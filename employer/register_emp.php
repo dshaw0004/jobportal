@@ -12,95 +12,7 @@
 <title>Employer Registration - JOB NOVA</title>
 
 <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
-
-<style>
-body {
-    background: url('../images/employee.jpg') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Segoe UI', sans-serif;
-    color: #ffffff;
-    padding-top: 80px;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    height: 100%; width: 100%;
-    background: rgba(6, 20, 40, 0.55);
-    z-index: -1;
-}
-
-/* ===== NAVBAR ===== */
-.navbar-custom {
-    width: 100%;
-    background: #111;
-    padding: 15px 0;
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 1000;
-}
-.nav-container {
-    width: 90%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.logo { color: #fff; font-size: 22px; font-weight: 600; }
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 16px;
-    transition: 0.3s;
-}
-.nav-links a:hover { color: #00c853; }
-
-/* ===== FORM CARD ===== */
-.glass-box {
-    background: rgba(20, 30, 50, 0.65);
-    padding: 40px;
-    margin: 20px auto 60px;
-    max-width: 780px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,255,255,0.15);
-}
-
-h1 { font-size: 36px; font-weight: 700; text-align: center; color: #fff; }
-h4 { font-size: 20px; color: #00c853; margin-top: 25px; margin-bottom: 15px; }
-p  { font-size: 16px; text-align: center; color: #ccc; }
-
-label { font-size: 15px; font-weight: 600; color: #ddd; }
-
-.form-control {
-    background: rgba(255,255,255,0.12) !important;
-    border: 1px solid rgba(255,255,255,0.2) !important;
-    color: #fff !important;
-    font-size: 15px;
-}
-.form-control::placeholder { color: #aaa; }
-.form-control option { color: #000; background: #fff; }
-
-select.form-control { color: #fff !important; }
-
-textarea { resize: vertical; }
-
-.btn-success { background: #00c853; border: none; font-size: 16px; padding: 10px 28px; }
-.btn-success:hover { background: #00a843; }
-.btn-danger  { border: none; font-size: 16px; padding: 10px 28px; }
-
-.section-divider {
-    border-top: 1px solid rgba(255,255,255,0.15);
-    margin: 20px 0;
-}
-
-@media (max-width: 768px) {
-    .glass-box { padding: 25px; }
-}
-</style>
+<link rel="stylesheet" href="../css/employer.css">
 
 <script>
 function checkForm() {
@@ -117,7 +29,7 @@ function checkForm() {
 <body>
 
 <!-- Navigation Bar -->
-<nav class="navbar-custom">
+<nav class="navbar">
     <div class="nav-container">
         <div class="logo">JOB NOVA</div>
         <div class="nav-links">
