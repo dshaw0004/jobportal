@@ -5,9 +5,11 @@ class dbconfig {
   // database username
   protected static $username = "root";
   // database password
-  protected static $password = "sreelal";
+  protected static $password = "";   // LAMPP default: no root password
   //database name
   protected static $dbname = "location";
+  // LAMPP MySQL socket
+  protected static $socket = "/opt/lampp/var/mysql/mysql.sock";
 
   static $con;
 
@@ -18,7 +20,7 @@ class dbconfig {
   // open connection
   protected static function connect() {
      try {
-       $link = mysqli_connect(self::$host, self::$username, self::$password, self::$dbname); 
+       $link = mysqli_connect(self::$host, self::$username, self::$password, self::$dbname, 3306, self::$socket); 
         if(!$link) {
           throw new exception(mysqli_error($link));
         }

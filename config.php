@@ -21,19 +21,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  */
-$host = "localhost";
-$user  = "root";
-$password =  "sreelal";
+$host     = "localhost";
+$user     = "root";
+$password = "";           // LAMPP default: no root password
 $database1 = "jobportal";
 $database2 = "location";
-$db1 = new mysqli($host, $user, $password, $database1);
-/*if($db1->connect_errno > 0){
-    die('Unable to connect to database' . $db1->connect_error);
-}else{
-    echo "Database jobportal is connected.";
+// Use LAMPP's MySQL socket directly to avoid port conflicts
+$socket = "/opt/lampp/var/mysql/mysql.sock";
+$db1 = new mysqli($host, $user, $password, $database1, 3306, $socket);
+if ($db1->connect_errno > 0) {
+    die('Cannot connect to jobportal DB: ' . $db1->connect_error);
 }
-*/
-$db2 = new mysqli($host, $user, $password, $database2);
+$db2 = new mysqli($host, $user, $password, $database2, 3306, $socket);
 /*if($db2->connect_errno > 0){
     die('Unable to connect to database' . $db2->connect_error);
 }else{

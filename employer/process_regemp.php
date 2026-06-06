@@ -37,6 +37,7 @@ $phone=$_POST['phone'];
 $countryid=$_POST['country'];
 $stateid=$_POST['state'];
 $cityid=$_POST['city'];
+$profile=$_POST['profile'];
 
 mysqli_select_db($db2,"location");
 
@@ -57,8 +58,8 @@ $location=$country.",".$state.",".$city;
 
 $query4="INSERT INTO login (email,password,usertype,status) VALUES ('$email','$hash','employer',0)";
     $result1 = mysqli_query($db1,$query4) or die("Cant Register , The user email may be already existing");
-$query5 =  "INSERT INTO employer (log_id,ename,phone,location,etype,address,pincode,executive,industry)
-                VALUES ((SELECT log_id FROM login WHERE email='$email'),'$name','$phone','$location','$type','$addr','$pin','$person','$industry')";
+$query5 =  "INSERT INTO employer (log_id,ename,phone,location,etype,address,pincode,executive,industry,profile)
+                VALUES ((SELECT log_id FROM login WHERE email='$email'),'$name','$phone','$location','$type','$addr','$pin','$person','$industry','$profile')";
 
  //$result2 = mysqli_query($db1,$query5);
 if (!mysqli_query($db1,$query5))
@@ -66,6 +67,6 @@ if (!mysqli_query($db1,$query5))
     echo("Error description: " . mysqli_error($db1));
 }
 else{
-    header('location:login.php?msg=registered');
+    header('location:../login.php?msg=registered');
 }
 ?>
