@@ -210,6 +210,59 @@ if ($method === 'POST') {
         exit;
     }
 
+    if ($action === 'update_password') {
+        $log_id = isset($_SESSION['id']) ? $_SESSION['id'] : (isset($_SESSION['elogid']) ? $_SESSION['elogid'] : null);
+        if (!$log_id) {
+            echo json_encode(["success" => false, "message" => "Not authenticated"]);
+            exit;
+        }
+
+        $old_password = $input['old_password'];
+        $new_password = $input['new_password'];
+
+        $query = mysqli_query($db1, "SELECT * FROM login WHERE log_id = $log_id");
+        $result = mysqli_fetch_array($query, MYSQLI_ASSOC);
+
+        if ($result && password_verify($old_password, $result['password'])) {
+            $new_hash = password_hash($new_password, PASSWORD_DEFAULT);
+            $update_query = "UPDATE login SET password = '$new_hash' WHERE log_id = $log_id";
+            if (mysqli_query($db1, $update_query)) {
+                echo json_encode(["success" => true, "message" => "Password updated successfully"]);
+            } else {
+                echo json_encode(["success" => false, "message" => "Failed to update password"]);
+            }
+        } else {
+            echo json_encode(["success" => false, "message" => "Invalid old password"]);
+        }
+        exit;
+    }
+
+    if ($action === 'delete_account') {
+        $log_id = isset($_SESSION['id']) ? $_SESSION['id'] : (isset($_SESSION['elogid']) ? $_SESSION['elogid'] : null);
+        if (!$log_id) {
+            echo json_encode(["success" => false, "message" => "Not authenticated"]);
+            exit;
+        }
+
+        $password = $input['password'];
+        $query = mysqli_query($db1, "SELECT * FROM login WHERE log_id = $log_id");
+        $result = mysqli_fetch_array($query, MYSQLI_ASSOC);
+
+        if ($result && password_verify($password, $result['password'])) {
+            $delete_query = "DELETE FROM login WHERE log_id = $log_id";
+            if (mysqli_query($db1, $delete_query)) {
+                session_unset();
+                session_destroy();
+                echo json_encode(["success" => true, "message" => "Account deleted successfully"]);
+            } else {
+                echo json_encode(["success" => false, "message" => "Failed to delete account"]);
+            }
+        } else {
+            echo json_encode(["success" => false, "message" => "Invalid password"]);
+        }
+        exit;
+    }
+
     if ($action === 'register_employer') {
         $email = mysqli_real_escape_string($db1, $input['email']);
         $password = $input['password'];

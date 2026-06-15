@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { LocationSelector } from "@/components/LocationSelector"
-import { User, CheckCircle, Search, Clock, Award, LogOut, Upload } from "lucide-react"
+import { User, CheckCircle, Search, Clock, Award, LogOut, Upload, Settings } from "lucide-react"
 
 interface JobseekerDashboardProps {
   user: any;
@@ -21,7 +21,7 @@ interface Job {
 }
 
 export function JobseekerDashboard({ user, onLogout }: JobseekerDashboardProps) {
-  const [activeTab, setActiveTab] = useState<"profile" | "recommended" | "search" | "applied" | "shortlisted">("profile")
+  const [activeTab, setActiveTab] = useState<"profile" | "recommended" | "search" | "applied" | "shortlisted" | "settings">("profile")
   const [profile, setProfile] = useState<any>(null)
   const [recommendedJobs, setRecommendedJobs] = useState<Job[]>([])
   const [appliedJobs, setAppliedJobs] = useState<any[]>([])
@@ -46,6 +46,10 @@ export function JobseekerDashboard({ user, onLogout }: JobseekerDashboardProps) 
     state: "",
     city: ""
   })
+
+  // Settings Form state
+  const [passwordForm, setPasswordForm] = useState({ old_password: "", new_password: "", confirm_password: "" })
+  const [deletePassword, setDeletePassword] = useState("")
 
   // Alerts
   const [alert, setAlert] = useState<{ type: "success" | "error"; msg: string } | null>(null)
@@ -170,6 +174,62 @@ export function JobseekerDashboard({ user, onLogout }: JobseekerDashboardProps) 
   }
 
   // Upload handlers
+  const handleUpdatePassword = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (passwordForm.new_password !== passwordForm.confirm_password) {
+      showAlert("error", "New passwords do not match")
+      return
+    }
+    fetch("/api/auth.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "update_password",
+        old_password: passwordForm.old_password,
+        new_password: passwordForm.new_password
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          showAlert("success", data.message || "Password updated successfully")
+          setPasswordForm({ old_password: "", new_password: "", confirm_password: "" })
+        } else {
+          showAlert("error", data.message || "Failed to update password")
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+        showAlert("error", "Error updating password")
+      })
+  }
+
+  const handleDeleteAccount = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!confirm("Are you sure you want to permanently delete your account? This action cannot be undone.")) return
+
+    fetch("/api/auth.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "delete_account",
+        password: deletePassword
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          onLogout()
+        } else {
+          showAlert("error", data.message || "Failed to delete account")
+        }
+      })
+      .catch((err) => {
+        console.error(err)
+        showAlert("error", "Error deleting account")
+      })
+  }
+
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -330,6 +390,14 @@ export function JobseekerDashboard({ user, onLogout }: JobseekerDashboardProps) 
           >
             <CheckCircle className="h-4 w-4" /> Shortlisted Status
           </button>
+          <button
+            onClick={() => setActiveTab("settings")}
+            className={`w-full text-left px-4 py-2.5 text-xs font-semibold rounded-xl flex items-center gap-3 transition ${
+              activeTab === "settings" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
+            }`}
+          >
+            <Settings className="h-4 w-4" /> Settings
+          </button>
           <div className="h-px bg-border my-2" />
           <button
             onClick={onLogout}
@@ -353,6 +421,82 @@ export function JobseekerDashboard({ user, onLogout }: JobseekerDashboardProps) 
         )}
 
         <div className="bg-card/45 backdrop-blur-md border border-border/60 p-6 md:p-8 rounded-3xl shadow-xl flex-1 flex flex-col">
+          {activeTab === "settings" && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold font-heading">Settings</h2>
+                <p className="text-xs text-muted-foreground font-light">Manage your account security and preferences.</p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="bg-background border border-border/80 p-5 rounded-2xl shadow-sm">
+                  <h3 className="font-heading font-bold text-lg mb-4">Change Password</h3>
+                  <form onSubmit={handleUpdatePassword} className="space-y-4 max-w-sm">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Current Password</label>
+                      <input
+                        type="password"
+                        required
+                        value={passwordForm.old_password}
+                        onChange={(e) => setPasswordForm({ ...passwordForm, old_password: e.target.value })}
+                        className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">New Password</label>
+                      <input
+                        type="password"
+                        required
+                        value={passwordForm.new_password}
+                        onChange={(e) => setPasswordForm({ ...passwordForm, new_password: e.target.value })}
+                        className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Confirm New Password</label>
+                      <input
+                        type="password"
+                        required
+                        value={passwordForm.confirm_password}
+                        onChange={(e) => setPasswordForm({ ...passwordForm, confirm_password: e.target.value })}
+                        className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="py-2.5 px-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-sm rounded-lg shadow-md transition"
+                    >
+                      Update Password
+                    </button>
+                  </form>
+                </div>
+
+                <div className="bg-rose-500/5 border border-rose-500/20 p-5 rounded-2xl shadow-sm">
+                  <h3 className="font-heading font-bold text-lg text-rose-500 mb-2">Delete Account</h3>
+                  <p className="text-xs text-rose-400/80 mb-4 font-medium">Warning: This action is permanent and will delete your profile and all applications.</p>
+                  <form onSubmit={handleDeleteAccount} className="space-y-4 max-w-sm">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-rose-500/70 uppercase tracking-wider">Verify Password to Delete</label>
+                      <input
+                        type="password"
+                        required
+                        value={deletePassword}
+                        onChange={(e) => setDeletePassword(e.target.value)}
+                        className="w-full bg-background border border-rose-500/30 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/50 transition text-foreground"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="py-2.5 px-4 bg-rose-600 hover:bg-rose-500 text-white font-semibold text-sm rounded-lg shadow-md transition"
+                    >
+                      Permanently Delete Account
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
+
           {activeTab === "profile" && (
             <div className="space-y-6">
               <div className="border-b border-border pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
