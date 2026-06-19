@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Job Nova | Find the Right Job, Faster</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "secondary": "#2b5bb5",
+                        "surface-container-highest": "#e0e2ec",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "background": "#f9f9ff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f9f9ff",
+                        "primary": "#005bbf",
+                        "inverse-on-surface": "#eff0fa",
+                        "surface-bright": "#f9f9ff",
+                        "on-surface": "#191c23",
+                        "tertiary-container": "#c55500",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c1c6d6",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#d9e2ff",
+                        "inverse-surface": "#2d3038",
+                        "tertiary-fixed": "#ffdbcb",
+                        "surface-tint": "#005bc0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#004493",
+                        "surface-container-high": "#e6e8f2",
+                        "secondary-container": "#759efd",
+                        "primary-fixed": "#d8e2ff",
+                        "on-primary-fixed": "#001a41",
+                        "on-tertiary-fixed-variant": "#783100",
+                        "secondary-fixed-dim": "#b0c6ff",
+                        "on-primary-container": "#ffffff",
+                        "surface-dim": "#d8d9e3",
+                        "on-surface-variant": "#414754",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#001945",
+                        "on-tertiary-fixed": "#341100",
+                        "primary-fixed-dim": "#adc7ff",
+                        "on-secondary-fixed-variant": "#00429c",
+                        "error": "#ba1a1a",
+                        "tertiary": "#9e4300",
+                        "surface-variant": "#e0e2ec",
+                        "primary-container": "#1a73e8",
+                        "outline": "#727785",
+                        "on-secondary-container": "#00337c",
+                        "surface-container": "#ecedf7",
+                        "inverse-primary": "#adc7ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#191c23",
+                        "surface-container-low": "#f2f3fd",
+                        "on-tertiary-container": "#0e0200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xl": "40px",
+                        "gutter": "24px",
+                        "sm": "8px",
+                        "container-max": "1280px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Hanken Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- 1. Sticky Nav -->
+<nav class="sticky top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-[0px_4px_20px_rgba(26,115,232,0.08)]">
+<div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<img alt="Job Nova Logo" class="h-10" src="data:image/png;base64,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"/>
+<div class="hidden md:flex items-center gap-6">
+<a class="font-Inter text-label-md text-primary font-bold border-b-2 border-primary transition-all" href="#">Home</a>
+<a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Govt Jobs</a>
+<a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Private Jobs</a>
+<a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Companies</a>
+<a class="font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Resources</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden sm:block font-Inter text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Login/Register</a>
+<button class="bg-primary-container text-on-primary-container font-Inter text-label-md px-6 py-2.5 rounded-xl font-semibold shadow-sm hover:opacity-90 active:scale-[0.98] transition-all">Post a Job</button>
+</div>
+</div>
+</nav>
+<!-- 2. Hero Section -->
+<header class="relative overflow-hidden pt-xl pb-20 px-gutter">
+<div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-12 items-center">
+<div class="z-10">
+<h1 class="font-headline text-display-lg text-on-surface mb-md leading-tight">
+                    Find the Right <span class="text-primary">Job, Faster</span>
+</h1>
+<p class="font-body text-body-lg text-on-surface-variant mb-xl max-w-lg">
+                    Explore thousands of Government and Private sector opportunities across India. Your dream career starts with a single click.
+                </p>
+<!-- Signature Search Bar -->
+<div class="bg-surface-container-low p-2 rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] flex flex-col md:flex-row gap-2 mb-lg">
+<div class="flex-1 flex items-center gap-3 px-4 py-3 bg-white rounded-xl border border-outline-variant focus-within:border-primary">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body text-body-md" placeholder="Job title, keywords..." type="text"/>
+</div>
+<div class="flex-1 flex items-center gap-3 px-4 py-3 bg-white rounded-xl border border-outline-variant focus-within:border-primary">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body text-body-md" placeholder="City or state" type="text"/>
+</div>
+<button class="bg-primary text-white px-8 py-3 rounded-xl font-semibold hover:bg-secondary transition-colors">Search</button>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="text-label-sm text-on-surface-variant font-semibold px-3 py-1 bg-surface-container-high rounded-full hover:bg-primary-fixed-dim cursor-pointer transition-colors">SSC</span>
+<span class="text-label-sm text-on-surface-variant font-semibold px-3 py-1 bg-surface-container-high rounded-full hover:bg-primary-fixed-dim cursor-pointer transition-colors">UPSC</span>
+<span class="text-label-sm text-on-surface-variant font-semibold px-3 py-1 bg-surface-container-high rounded-full hover:bg-primary-fixed-dim cursor-pointer transition-colors">Railway</span>
+<span class="text-label-sm text-on-surface-variant font-semibold px-3 py-1 bg-surface-container-high rounded-full hover:bg-primary-fixed-dim cursor-pointer transition-colors">Banking</span>
+<span class="text-label-sm text-on-surface-variant font-semibold px-3 py-1 bg-surface-container-high rounded-full hover:bg-primary-fixed-dim cursor-pointer transition-colors">IT</span>
+<span class="text-label-sm text-on-surface-variant font-semibold px-3 py-1 bg-surface-container-high rounded-full hover:bg-primary-fixed-dim cursor-pointer transition-colors">Marketing</span>
+<span class="text-label-sm text-on-surface-variant font-semibold px-3 py-1 bg-surface-container-high rounded-full hover:bg-primary-fixed-dim cursor-pointer transition-colors">Remote</span>
+</div>
+</div>
+<div class="relative hidden md:block">
+<div class="absolute -top-20 -right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-20 -left-20 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
+<img class="rounded-2xl shadow-2xl relative z-10 w-full h-[500px] object-cover border-8 border-white" data-alt="A modern, high-end office environment featuring diverse young professionals collaborating in a brightly lit, open-concept workspace. The setting is clean and professional with soft blue accents, reflecting a premium career-oriented ecosystem. Large windows in the background allow for natural sunlight, creating an aspirational and productive atmosphere typical of a leading corporate headquarters in a tech-driven city." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVhj7Sw2V4VlY073iUnjWxl4ozaNwBzSWKwCTi9uBjqXBknjXcdv6SO4ZTzFJKID9ewIZwIBc6Er0QoI43iVH94ET1OEpdLKP31sKGvwsEdNObmVHqehxB_A5b4yrxi_2ibknA2BtOBBbHk5UJiVWIlj0Cifz9o0c6Z0qJdxt8e7Eez-uP-uOasW0d3c7gZQc9PsLUCw-ZTSxsEDlqWowH4mJ8mBEdWmiw0qUwUKFBeyObsqnM4Of-amtumPU5Egg_adZ4S6Ml-jXo"/>
+<div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg z-20 animate-bounce">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+</div>
+<div>
+<p class="text-label-sm font-bold">1.2k+ New Jobs</p>
+<p class="text-[10px] text-on-surface-variant">Added in last 24 hours</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- 3. Split Section: Career Path -->
+<section class="py-xl px-gutter bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto">
+<h2 class="font-headline text-headline-lg text-center mb-xl">Choose Your Career Path</h2>
+<div class="grid md:grid-cols-2 gap-lg">
+<!-- Govt Jobs Card -->
+<div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-1">
+<div class="bg-white rounded-[14px] p-8 h-full transition-all group-hover:bg-white/95">
+<div class="mb-6 inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-xl text-primary">
+<span class="material-symbols-outlined text-[32px]">account_balance</span>
+</div>
+<h3 class="font-headline text-headline-md mb-3">Government Jobs</h3>
+<p class="font-body text-body-md text-on-surface-variant mb-6">Secure your future with stable and prestigious careers in Public Sector Undertakings and Government departments.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md">SSC</span>
+<span class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md">UPSC</span>
+<span class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md">Railways</span>
+<span class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md">State PSC</span>
+</div>
+<a class="inline-flex items-center gap-2 font-Inter font-bold text-primary hover:gap-4 transition-all" href="#">
+                            Explore Govt Jobs <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Private Jobs Card -->
+<div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-tertiary to-secondary p-1">
+<div class="bg-white rounded-[14px] p-8 h-full transition-all group-hover:bg-white/95">
+<div class="mb-6 inline-flex items-center justify-center w-14 h-14 bg-tertiary/10 rounded-xl text-tertiary">
+<span class="material-symbols-outlined text-[32px]">business_center</span>
+</div>
+<h3 class="font-headline text-headline-md mb-3">Private Jobs</h3>
+<p class="font-body text-body-md text-on-surface-variant mb-6">Accelerate your career in fast-growing industries with top MNCs and innovative Indian startups.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md">IT &amp; Software</span>
+<span class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md">Marketing</span>
+<span class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md">Fintech</span>
+<span class="px-3 py-1 bg-surface-container-low border border-outline-variant rounded-lg text-label-md">Sales</span>
+</div>
+<a class="inline-flex items-center gap-2 font-Inter font-bold text-tertiary hover:gap-4 transition-all" href="#">
+                            Explore Private Jobs <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Featured Govt Jobs -->
+<section class="py-xl px-gutter">
+<div class="max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="font-headline text-headline-lg mb-2">Featured Govt Jobs</h2>
+<p class="text-on-surface-variant">Latest openings from top Government departments</p>
+</div>
+<a class="text-primary font-bold hover:underline" href="#">View All</a>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Job Card 1 -->
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/5 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+<span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
+</div>
+<h4 class="font-headline font-semibold text-lg mb-1">Administrative Officer</h4>
+<p class="text-on-surface-variant text-label-md mb-4">Staff Selection Commission (SSC)</p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> New Delhi, India
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">event</span> Last Date: 24 Oct, 2024
+                        </div>
+</div>
+<button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">Apply Now</button>
+</div>
+<!-- Repeat for 5 more cards with varied data -->
+<!-- Job Card 2 -->
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/5 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">train</span>
+</div>
+<span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
+</div>
+<h4 class="font-headline font-semibold text-lg mb-1">Assistant Loco Pilot</h4>
+<p class="text-on-surface-variant text-label-md mb-4">Indian Railways (RRB)</p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Multiple Locations
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">event</span> Last Date: 15 Nov, 2024
+                        </div>
+</div>
+<button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">Apply Now</button>
+</div>
+<!-- Job Card 3 -->
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/5 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<span class="bg-orange-100 text-orange-700 text-label-sm px-2 py-1 rounded">Expiring Soon</span>
+</div>
+<h4 class="font-headline font-semibold text-lg mb-1">Probationary Officer</h4>
+<p class="text-on-surface-variant text-label-md mb-4">State Bank of India (SBI)</p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Pan India
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">event</span> Last Date: 05 Oct, 2024
+                        </div>
+</div>
+<button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">Apply Now</button>
+</div>
+<!-- Job Card 4 -->
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/5 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
+</div>
+<h4 class="font-headline font-semibold text-lg mb-1">Sub Inspector</h4>
+<p class="text-on-surface-variant text-label-md mb-4">Delhi Police</p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Delhi
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">event</span> Last Date: 30 Oct, 2024
+                        </div>
+</div>
+<button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">Apply Now</button>
+</div>
+<!-- Job Card 5 -->
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/5 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">school</span>
+</div>
+<span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
+</div>
+<h4 class="font-headline font-semibold text-lg mb-1">Post Graduate Teacher</h4>
+<p class="text-on-surface-variant text-label-md mb-4">Kendriya Vidyalaya Sangathan (KVS)</p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> All India
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">event</span> Last Date: 12 Nov, 2024
+                        </div>
+</div>
+<button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">Apply Now</button>
+</div>
+<!-- Job Card 6 -->
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] border border-transparent hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/5 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">engineering</span>
+</div>
+<span class="bg-green-100 text-green-700 text-label-sm px-2 py-1 rounded">Open</span>
+</div>
+<h4 class="font-headline font-semibold text-lg mb-1">Junior Engineer</h4>
+<p class="text-on-surface-variant text-label-md mb-4">Public Works Department (PWD)</p>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">location_on</span> Karnataka
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm">event</span> Last Date: 10 Nov, 2024
+                        </div>
+</div>
+<button class="w-full py-3 rounded-xl border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">Apply Now</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Featured Private Jobs -->
+<section class="py-xl px-gutter bg-surface-container-low">
+<div class="max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="font-headline text-headline-lg mb-2">Featured Private Jobs</h2>
+<p class="text-on-surface-variant">Opportunity knocking from top global and local tech leaders</p>
+</div>
+<a class="text-primary font-bold hover:underline" href="#">View All</a>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Private Job Card 1 -->
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] group hover:-translate-y-1 transition-all">
+<div class="flex gap-4 mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center p-2">
+<img alt="Microsoft" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8RtJKLz4u8ZBGsGzTR4zz-3jUGiovuqRqZVvvLzptR-WWl25-0Cp9mk0yfZIIwW6KVkpm3EbOCfMOqviBC6UsNytEdPg9y2jgHWfl71-u7f04B2zKOHxjOqrAw1--kPQpWMPGEc4eTt1HS_xwhgJiLEVAHQfvbFcpyT_gt0WlubSiCgYoWi-zOiYHY6fuvfk_bRWyT0E_JBi8advBS4Jb5hAD-DGNKEFV1mSmSedZEatkf-dMmIghwJPAp6KO6rpMOvD0lip4oWQh"/>
+</div>
+<div>
+<h4 class="font-headline font-semibold">Software Engineer II</h4>
+<p class="text-on-surface-variant text-label-md">Microsoft</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-primary/10 text-primary text-label-sm px-2 py-1 rounded">Remote</span>
+<span class="bg-surface-container-high text-on-surface-variant text-label-sm px-2 py-1 rounded">Full-time</span>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-on-surface font-bold">₹18L - 25L <span class="text-on-surface-variant font-normal text-xs">/yr</span></p>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-label-md font-bold group-hover:bg-secondary transition-all">Apply</button>
+</div>
+</div>
+<!-- Repeat for others -->
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] group hover:-translate-y-1 transition-all">
+<div class="flex gap-4 mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center p-2">
+<img alt="Amazon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRzCmAwdWfn33lp9OHWWRqWM587kc8M4HawbOT1ovx1pJ6ekiAZa-y5Wj3SCopUBXM1-r_BRkFhmPzBF5olbvtKzek6e0NRCVo8pDPIpTtQh0NcWIUaY7n8CdW8Kb1SU0i31qOFECtkUvqG5pz4gjPHzGnjrrEaYLGbELTYlyjzQPgyrGB4KHQ_JzNl8r3jVqPuUFZz8xAIavTFQGFztGHq5a2GoJP1qxCGirFvygncAbhtTe6BJhUu8WjdLsCBwOq2sPr28EtnZtp"/>
+</div>
+<div>
+<h4 class="font-headline font-semibold">Product Manager</h4>
+<p class="text-on-surface-variant text-label-md">Amazon</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-primary/10 text-primary text-label-sm px-2 py-1 rounded">Hyderabad</span>
+<span class="bg-surface-container-high text-on-surface-variant text-label-sm px-2 py-1 rounded">On-site</span>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-on-surface font-bold">₹22L - 30L <span class="text-on-surface-variant font-normal text-xs">/yr</span></p>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-label-md font-bold group-hover:bg-secondary transition-all">Apply</button>
+</div>
+</div>
+<div class="bg-white p-md rounded-2xl shadow-[0px_4px_20px_rgba(26,115,232,0.08)] group hover:-translate-y-1 transition-all">
+<div class="flex gap-4 mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center p-2">
+<img alt="Infosys" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBesjQdnVwj10pKNJ9dFCyZy8omcBVRoFHbF-YPgdD7MGj_wopbtT4yyIvkQP04s7RtGUcUwb4VBzLCuoWg3WFMlWAso8hsvggEKaJNc4fNrSr_xn0-jQwMzMlTeYv67qpatzl1SPSdb0utqK8jxDaEkS-IMd0XhO7-GF8Zg_5rsSra15bqgrVedaepveEqV_4bj-yo5mOuuVbrhhMj70SNNfrW59Gw8G8vrUfeosfatKsqBM3ZqPkV-Rf5Ll9qvQFp2NsxMATXjAAs"/>
+</div>
+<div>
+<h4 class="font-headline font-semibold">Cloud Architect</h4>
+<p class="text-on-surface-variant text-label-md">Infosys</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="bg-primary/10 text-primary text-label-sm px-2 py-1 rounded">Bengaluru</span>
+<span class="bg-surface-container-high text-on-surface-variant text-label-sm px-2 py-1 rounded">Hybrid</span>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-on-surface font-bold">₹15L - 20L <span class="text-on-surface-variant font-normal text-xs">/yr</span></p>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-label-md font-bold group-hover:bg-secondary transition-all">Apply</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Trusted Companies Logo Grid -->
+<section class="py-xl px-gutter">
+<div class="max-w-container-max mx-auto text-center">
+<p class="text-label-md text-outline font-semibold mb-lg uppercase tracking-widest">Hiring at world class companies</p>
+<div class="flex flex-wrap justify-center items-center gap-xl opacity-60 grayscale hover:grayscale-0 transition-all">
+<img alt="Google" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4WT-ao_Wx6rLtgFi1qDaLQZAmQWc8An_otqzkd59AwU60IQy7l9xmSxu-GzIdWbIig8nsxCN8fSqXOovwhjKpymrDBXug3XSfdjQE-N025OsYFx8ryBkJ74SKwBCEn0uTEDGGFRPVdrIEo86ohA13eAMB6XdTVif5fLWz20dmj8j6s_dKOLQq3Wa0J5DAsHuH0s40lBTa1cE41BA60ZvVbMYtYNATb97L_HgK3X1zecOu75FbMN5NcxlxnarPdj__zIs_M4CyZGBI"/>
+<img alt="Microsoft" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf_CPY7Dz0BBIJQHE7vAn-DIfEGPnqoKZetEj6pjWERasB6wHIXDhH31Z3He56b_3fxED8-D7n6bdTgBuVr7djmA3wquOQqoA2HEqhQJaisnUZ-DjAn_lWZ9yq5JI0WKdW9Ct5LpvdP0tmCQY4PVfwlbWSJsDsPMJ68NQNr1f4ArDqovogMQd66I6DrjsDVt24M2zlFXNVIBqjvWItOm_61XZuCEQ4xeX827CdHsDhrQNpI0eI8pIa9jQH5vWd9N2fXpE08e_F9JZF"/>
+<img alt="Amazon" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi_nJvoeqkPQk7bFHW7K5wwC0vQE0D7xd3e-d8o-rIg4G8x-ZHIuqa_dLsajzZroav9eJwTnCau6gBsY9_s1S719-597Gu1UeRyXWQlT8l3XxmBA8LtIM23xju63MCEgEhiURjcV7gM-5b4q-SpSlrGndiFK9DO7Krl6WC3GlAFyaOt7a2rX8Q-h5uThG_w3X12YUWhYe9tr_waQDpRaY5whK8AXim2uLS-3XI5ZfXBJVZmqax5WfS0pXB53HXX9bRFlvABopHuO_X"/>
+<img alt="Infosys" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUiGIMjW-KC_kD8xqYYKFza5nD79wN_NEaXrAr2ZYAjxoSAwrzID1U4sPKsjBHbFZrRs7jt4RtBsxrCgHWYWQY_iv7tUqf9oQtueUa1l8zARS-yFuRBvgdIEAjpd9t5UP6QX6adZYo4oX3-G-AJUPyxbdA20_V9rnbxTDWJCiiflut3hp8kSbj9SlDfjoamZvDMBNpRK6pGLVAfxWTzyFc0YrhAG3pMmjhYjGBmMiW_kjurszygg8P-pgnq1QXBJ5hzF5kMXHcv7OV"/>
+<img alt="TCS" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_wwB_FiwASfKTsXuvhS5Kl8UTDEVoFNCDbu3ADr9W3xHlhojTQMmoEwZ4CBuZK3IoziZM60MV0MWtsAj6RqOq9w9VDVktIetMZNAYj3OgNB0HYkJl84gnpDj3w89VR-DZQCmjF-FuBXghtyNGz7U6vay4TiD3727BdEu7h86yM680Q3AFavhz0eVXid-6CVsdIOIvO0kQNaG8D9gNhRWNxaUJGX5PGAfkayn8gVqAsOflTr6Q_MHrluS8DzsEYW0qtzVThdGCugSt"/>
+<img alt="Wipro" class="h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARqI_WmyffXtSz99zJD9gyERf-nT0jw55H_PZzHdWzgOeBtuVfRKupFEvzRBwI-eXqvqIlAp2EiP-Krfj_OOetNPrJc3XTuzYRshGxUzK70Ek4wARUVvbVqsZdJUeR1yHrEolH4h3l-d1mrQWEiRqN2iXFnu_PQsYXCCggNIrL4ib8QAFtFvPm0Bej3zL3ZPeZrjulf4KtqW6LzWzm8jn-5Qdfi7wk8ieh_gTB0f_u0V7DXN-9Dhm_NJGTCkotNztw_8B48VclTpdn"/>
+<img alt="Accenture" class="h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc-ePejgzmslWH06RtZ5zpknPUivDeaY30fhFb8JA8X7UNwkEOAN8kT2786GcK_zWdk0umt-yuHOgWvLRp6sVrgcdP_H1k8Bmboo0MDejgKRIQ0rBLy9POyy-3E-mR7DgOBgCbRU-Rp1jX_HkrtsNxFQdxUhmJhyz-3RLiD5YSuzvrHvYhxf-TuZuj9AqwYd_3O0d4qpBKmG0oc_BIXtrOO7nli8_gDl8fQ0MH0XFGl3LZxK2tw5ihMDxwSIaLknB-qgvaUTBgJq69"/>
+</div>
+</div>
+</section>
+<!-- 7. Why Choose -->
+<section class="py-xl px-gutter bg-white">
+<div class="max-w-container-max mx-auto">
+<h2 class="font-headline text-headline-lg text-center mb-xl">Why Professionals Choose Job Nova</h2>
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-lg">
+<div class="p-lg bg-surface-container-low rounded-2xl text-center">
+<span class="material-symbols-outlined text-[48px] text-primary mb-4">hub</span>
+<h4 class="font-headline text-lg font-bold mb-2">One Platform</h4>
+<p class="text-on-surface-variant text-body-md">Both Government &amp; Private sectors in one integrated dashboard.</p>
+</div>
+<div class="p-lg bg-surface-container-low rounded-2xl text-center">
+<span class="material-symbols-outlined text-[48px] text-primary mb-4">bolt</span>
+<h4 class="font-headline text-lg font-bold mb-2">Fast Search</h4>
+<p class="text-on-surface-variant text-body-md">Intelligent matching system that understands your career goals.</p>
+</div>
+<div class="p-lg bg-surface-container-low rounded-2xl text-center">
+<span class="material-symbols-outlined text-[48px] text-primary mb-4">verified_user</span>
+<h4 class="font-headline text-lg font-bold mb-2">Verified Listings</h4>
+<p class="text-on-surface-variant text-body-md">Every job posting is manually reviewed for authenticity and safety.</p>
+</div>
+<div class="p-lg bg-surface-container-low rounded-2xl text-center">
+<span class="material-symbols-outlined text-[48px] text-primary mb-4">trending_up</span>
+<h4 class="font-headline text-lg font-bold mb-2">Career Growth</h4>
+<p class="text-on-surface-variant text-body-md">Resources, resume tools, and expert guidance for every stage.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. How It Works -->
+<section class="py-xl px-gutter">
+<div class="max-w-container-max mx-auto">
+<h2 class="font-headline text-headline-lg text-center mb-xl">Your Path to Success</h2>
+<div class="relative">
+<div class="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-outline-variant -translate-y-1/2 z-0"></div>
+<div class="grid lg:grid-cols-4 gap-xl relative z-10">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-headline-md mb-6 shadow-lg">1</div>
+<h4 class="font-headline font-bold mb-2">Create Account</h4>
+<p class="text-on-surface-variant text-label-md">Join thousands of seekers and set up your preferences.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-white text-primary border-2 border-primary rounded-full flex items-center justify-center text-headline-md mb-6 shadow-lg">2</div>
+<h4 class="font-headline font-bold mb-2">Build Profile</h4>
+<p class="text-on-surface-variant text-label-md">Showcase your skills with our smart resume builder.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-white text-primary border-2 border-primary rounded-full flex items-center justify-center text-headline-md mb-6 shadow-lg">3</div>
+<h4 class="font-headline font-bold mb-2">Apply Smart</h4>
+<p class="text-on-surface-variant text-label-md">Use one-click apply for thousands of matching roles.</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-white text-primary border-2 border-primary rounded-full flex items-center justify-center text-headline-md mb-6 shadow-lg">4</div>
+<h4 class="font-headline font-bold mb-2">Get Hired</h4>
+<p class="text-on-surface-variant text-label-md">Land your dream job and start your new chapter.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 9. Success Stories -->
+<section class="py-xl px-gutter bg-surface-container-low">
+<div class="max-w-container-max mx-auto">
+<h2 class="font-headline text-headline-lg text-center mb-xl">Success Stories</h2>
+<div class="grid md:grid-cols-3 gap-lg">
+<div class="bg-white p-lg rounded-2xl shadow-sm border border-outline-variant">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="Close up portrait of a smiling young Indian professional man in a formal white shirt, set against a clean, light office backdrop. The lighting is soft and natural, emphasizing a look of confidence and professional success. The overall aesthetic is clean and high-key, aligning with a modern career-focused website." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBeuhfLqEbZ9z07ss-89JkapAhbtPrZzhwZqJTo4BOJeAL7V6J3ZV-qETLh-7LQQ2vXWWA2bUeiZpyNRh1U7x4YNsZP0F9hzlLu0-j9qDfLWw0VHVXQZFpMJjJGmaIC8EADoZot5KogIL1HJfH0DTcEHBwUiVCypNChahw4sthxJjzpyjCyX0nirL1WB8LSr_6q-W0t6hn4suNJ-jiFvNXIDLb3UQXQqR9MvQaYzRrkWiQvHj6pTClddynZmr1m2P36oTLQdtWF5VI"/>
+<div>
+<h5 class="font-headline font-bold">Rahul Sharma</h5>
+<p class="text-xs text-on-surface-variant">Placed at TCS</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface italic">"Job Nova helped me find the perfect balance. I was looking for IT roles but also considering PSU exams. The platform gave me clarity and the resources to land my current role at TCS."</p>
+</div>
+<div class="bg-white p-lg rounded-2xl shadow-sm border border-outline-variant">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A professional young Indian woman smiling warmly, wearing a smart casual blazer. She is standing in a brightly lit, modern co-working space with subtle plants and architectural elements in the background. The photo conveys approachable expertise and career achievement in a light-mode, premium UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ8A21welXVcCGomKrIFMkq8Xo2liN1Yp5aV8rJpgrBhV30IGtn0Vi5LDhL6QO7P7RME9zw7eRqyYGEbuDqxL_4jDCpRpQiGvvMzP2-u08bG_DbquJKFeP6QTmUty4eHe5whY5ALIXCwrZHy9pIrHcLgUSck6v-_ehn4EMnZTnlnJj1Q1PBzrLwYxio_IsvR0cCmRMS-KSPVEjo7FFs_l05_80C6s7W4e-7CYi3mWdD3BviGBPFDz7a52_95-xMKkFuJzlfuRmk8oG"/>
+<div>
+<h5 class="font-headline font-bold">Priya Verma</h5>
+<p class="text-xs text-on-surface-variant">SBI PO Candidate</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface italic">"The Govt Job alerts on this platform are second to none. I never missed a deadline, and the previous year papers provided in the resources section were a game changer."</p>
+</div>
+<div class="bg-white p-lg rounded-2xl shadow-sm border border-outline-variant">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="A portrait of a cheerful young man with a beard, looking directly at the camera with an expression of friendly confidence. He is in a clean, minimalist setting with high-key lighting that creates a bright, energetic feel. The style is professional yet accessible, perfect for a modern job platform success story." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfVEymvLz3mnuaDMxFKH_t-RwOyxQQMMsmEHv-MZ761-hfxKqZlOxzceJZJYfu_afY_MaXj05XH_djqOGZrtChW-ljcfrK37FjujJx4nUDIxAjt4i--52nsn2Sw3hE6HtsC84mF5ksuHwsOHrVRa8ezBY0ObiH1-7P5-dHtPQwhx4MhPx7kqxmjC2DD8MwH7zk7ViUtzID64n9dIiBrvHLCDX9ikJ5ameRXuc5GsSnZHg-JoMpKjcfIOYLnw0TQ9vCm-jzYgojr24s"/>
+<div>
+<h5 class="font-headline font-bold">Arjun Iyer</h5>
+<p class="text-xs text-on-surface-variant">Marketing Lead, Zomato</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface italic">"Found my latest role through Job Nova's personalized recommendations. It's refreshing to see a platform that actually understands the Indian private sector landscape so well."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 10. CTA Banner -->
+<section class="py-xl px-gutter">
+<div class="max-w-container-max mx-auto bg-primary rounded-[32px] p-xl text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+<div class="relative z-10">
+<h2 class="font-headline text-display-lg text-white mb-md">Ready to Start Your Career Journey?</h2>
+<p class="text-primary-fixed-dim text-body-lg mb-xl max-w-2xl mx-auto">Join over 1 million job seekers who have found their dream careers with Job Nova.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-white text-primary px-8 py-4 rounded-xl font-bold hover:bg-primary-fixed-dim transition-colors">Browse Govt Jobs</button>
+<button class="bg-primary-container text-white border border-white/30 px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-colors">Browse Private Jobs</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 11. Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest w-full pt-xl pb-md">
+<div class="grid grid-cols-2 md:grid-cols-5 gap-lg px-gutter max-w-container-max mx-auto mb-xl">
+<div class="col-span-2 md:col-span-1">
+<img alt="Job Nova Logo" class="h-8 mb-6" src="data:image/png;base64,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"/>
+<p class="text-on-surface-variant text-label-md leading-relaxed">India's leading job platform for both Government and Private sector opportunities.</p>
+</div>
+<div>
+<h6 class="font-headline font-bold text-primary mb-6">Company</h6>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Careers</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Press</a></li>
+</ul>
+</div>
+<div>
+<h6 class="font-headline font-bold text-primary mb-6">Resources</h6>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Blog</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Guides</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Help Center</a></li>
+</ul>
+</div>
+<div>
+<h6 class="font-headline font-bold text-primary mb-6">Jobs</h6>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Govt Jobs</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">IT Jobs</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Sales</a></li>
+</ul>
+</div>
+<div>
+<h6 class="font-headline font-bold text-primary mb-6">Support</h6>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Contact Us</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Terms</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-outline-variant px-gutter max-w-container-max mx-auto pt-md flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-on-surface-variant text-label-sm">© 2024 Job Nova. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">face_nod</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple intersection observer for reveal animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+    </script>
+</body></html>
