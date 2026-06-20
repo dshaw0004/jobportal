@@ -28,6 +28,9 @@ $database1 = "jobportal";
 $database2 = "location";
 // Use LAMPP's MySQL socket directly to avoid port conflicts
 $socket = "/opt/lampp/var/mysql/mysql.sock";
+if (!file_exists($socket)) {
+    $socket = null; // fallback to default socket
+}
 $db1 = new mysqli($host, $user, $password, $database1, 3306, $socket);
 if ($db1->connect_errno > 0) {
     die('Cannot connect to jobportal DB: ' . $db1->connect_error);

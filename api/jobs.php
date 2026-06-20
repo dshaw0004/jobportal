@@ -51,6 +51,66 @@ if ($method === 'GET') {
         exit;
     }
 
+    if ($action === 'list') {
+        $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 20;
+        $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
+
+        $keyword = isset($_GET['keyword']) ? mysqli_real_escape_string($db1, $_GET['keyword']) : '';
+        $company = isset($_GET['com']) ? mysqli_real_escape_string($db1, $_GET['com']) : '';
+        $location = isset($_GET['loc']) ? mysqli_real_escape_string($db1, $_GET['loc']) : '';
+        $desig = isset($_GET['desig']) ? mysqli_real_escape_string($db1, $_GET['desig']) : '';
+        $skills = isset($_GET['skills']) ? mysqli_real_escape_string($db1, $_GET['skills']) : '';
+        $industry = isset($_GET['industry']) ? mysqli_real_escape_string($db1, $_GET['industry']) : '';
+
+        $whereClauses = [];
+
+        if ($keyword !== '') {
+            $whereClauses[] = "(jobs.title LIKE '%$keyword%' OR employer.ename LIKE '%$keyword%' OR jobs.profile LIKE '%$keyword%')";
+        }
+        if ($company !== '') {
+            $whereClauses[] = "employer.ename LIKE '%$company%'";
+        }
+        if ($location !== '') {
+            $whereClauses[] = "jobs.location LIKE '%$location%'";
+        }
+        if ($desig !== '') {
+            $whereClauses[] = "jobs.title LIKE '%$desig%'";
+        }
+        if ($skills !== '') {
+            $whereClauses[] = "jobs.profile LIKE '%$skills%'";
+        }
+        if ($industry !== '') {
+            $whereClauses[] = "jobs.industry LIKE '%$industry%'";
+        }
+
+        $whereSQL = "";
+        if (count($whereClauses) > 0) {
+            $whereSQL = " WHERE " . implode(" AND ", $whereClauses);
+        }
+
+        $countQuery = "SELECT COUNT(*) as total_count FROM jobs JOIN employer ON jobs.eid = employer.eid" . $whereSQL;
+        $countResult = mysqli_query($db1, $countQuery);
+        $totalCount = 0;
+        if ($countRow = mysqli_fetch_assoc($countResult)) {
+            $totalCount = intval($countRow['total_count']);
+        }
+
+        $query = "SELECT jobs.*, employer.ename, employer.logo
+                  FROM jobs
+                  JOIN employer ON jobs.eid = employer.eid"
+                  . $whereSQL
+                  . " ORDER BY jobs.jobid DESC LIMIT $offset, $limit";
+
+        $result = mysqli_query($db1, $query);
+        $jobs = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $jobs[] = $row;
+        }
+
+        echo json_encode(["success" => true, "jobs" => $jobs, "total_count" => $totalCount]);
+        exit;
+    }
+
     if ($action === 'search') {
         $keyword = isset($_GET['keyword']) ? mysqli_real_escape_string($db1, $_GET['keyword']) : '';
         
@@ -67,7 +127,7 @@ if ($method === 'GET') {
                       JOIN employer ON jobs.eid = employer.eid 
                       WHERE jobs.title LIKE '%$keyword%' 
                          OR employer.ename LIKE '%$keyword%' 
-                         OR jobs.jprofile LIKE '%$keyword%'";
+                         OR jobs.profile LIKE '%$keyword%'";
         } else {
             // Advanced Search
             $clauses = [];
@@ -81,7 +141,7 @@ if ($method === 'GET') {
                 $clauses[] = "jobs.title LIKE '%$desig%'";
             }
             if ($skills !== '') {
-                $clauses[] = "jobs.jprofile LIKE '%$skills%'";
+                $clauses[] = "jobs.profile LIKE '%$skills%'";
             }
             if ($industry !== '') {
                 $clauses[] = "jobs.industry LIKE '%$industry%'";

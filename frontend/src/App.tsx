@@ -3,6 +3,7 @@ import { LandingPage } from "@/views/LandingPage"
 import { AuthPage } from "@/views/AuthPage"
 import { JobseekerDashboard } from "@/views/JobseekerDashboard"
 import { EmployerDashboard } from "@/views/EmployerDashboard"
+import { JobsPage } from "@/views/JobsPage"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { Briefcase, LogOut } from "lucide-react"
 
@@ -100,6 +101,14 @@ export function App() {
               >
                 Home
               </button>
+              <button
+                onClick={() => setView("jobs")}
+                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition ${
+                  view === "jobs" ? "bg-accent text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Find Jobs
+              </button>
               {user && (
                 <button
                   onClick={() => setView(user.usertype === "jobseeker" ? "seeker-dashboard" : "employer-dashboard")}
@@ -142,6 +151,7 @@ export function App() {
       {/* View router */}
       <main className="flex-1 w-full max-w-7xl mx-auto flex flex-col justify-start">
         {view === "landing" && <LandingPage onNavigate={setView} />}
+        {view === "jobs" && <JobsPage onNavigate={setView} />}
         {view === "auth" && <AuthPage onLoginSuccess={handleLoginSuccess} onNavigate={setView} />}
         {view === "seeker-dashboard" && <JobseekerDashboard user={user} onLogout={handleLogout} />}
         {view === "employer-dashboard" && <EmployerDashboard user={user} onLogout={handleLogout} />}
