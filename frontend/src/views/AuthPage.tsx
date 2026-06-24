@@ -1,13 +1,14 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "@/contexts/AuthContext"
 import { LocationSelector } from "@/components/LocationSelector"
 import { Lock, Mail, User, Phone, Briefcase, FileText, ChevronRight } from "lucide-react"
 
-interface AuthPageProps {
-  onLoginSuccess: (user: any) => void;
-  onNavigate: (view: string) => void;
-}
 
-export function AuthPage({ onLoginSuccess, onNavigate }: AuthPageProps) {
+
+export function AuthPage() {
+  const navigate = useNavigate()
+  const { login } = useAuth()
   const [activeTab, setActiveTab] = useState<"login" | "seeker" | "employer">("login")
   const [errorMsg, setErrorMsg] = useState("")
   const [successMsg, setSuccessMsg] = useState("")
@@ -71,7 +72,8 @@ export function AuthPage({ onLoginSuccess, onNavigate }: AuthPageProps) {
       .then((data) => {
         setLoading(false)
         if (data.success) {
-          onLoginSuccess(data.user)
+          login(data.user)
+          navigate(data.user.usertype === "jobseeker" ? "/seeker" : "/employer")
         } else {
           setErrorMsg(data.message || "Invalid credentials")
         }
@@ -558,7 +560,7 @@ export function AuthPage({ onLoginSuccess, onNavigate }: AuthPageProps) {
 
       <div className="text-center mt-6">
         <button
-          onClick={() => onNavigate("landing")}
+          onClick={() => navigate("/")}
           className="text-xs text-indigo-500 hover:text-indigo-400 font-semibold inline-flex items-center gap-1.5"
         >
           Back to Home Page <ChevronRight className="h-3 w-3" />
