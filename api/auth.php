@@ -172,18 +172,7 @@ if ($method === 'POST') {
         $email = mysqli_real_escape_string($db1, $input['email']);
         $password = $input['password'];
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $name = mysqli_real_escape_string($db1, $input['name']);
-        $phone = mysqli_real_escape_string($db1, $input['phone']);
-        $experience = mysqli_real_escape_string($db1, $input['experience']);
-        $skills = mysqli_real_escape_string($db1, $input['skills']);
-        $ug = mysqli_real_escape_string($db1, $input['ugcourse']);
-        $pg = mysqli_real_escape_string($db1, $input['pgcourse']);
         
-        $countryId = isset($input['country']) ? $input['country'] : '';
-        $stateId = isset($input['state']) ? $input['state'] : '';
-        $cityId = isset($input['city']) ? $input['city'] : '';
-        
-        $location = resolveLocation($db2, $countryId, $stateId, $cityId);
         mysqli_select_db($db1, "jobportal");
 
         // Check if email already exists
@@ -196,8 +185,7 @@ if ($method === 'POST') {
         $query_login = "INSERT INTO login (email, password, usertype, status) VALUES ('$email', '$hash', 'jobseeker', 1)";
         if (mysqli_query($db1, $query_login)) {
             $log_id = mysqli_insert_id($db1);
-            $query_seeker = "INSERT INTO jobseeker (log_id, name, phone, location, experience, skills, basic_edu, master_edu) 
-                             VALUES ($log_id, '$name', '$phone', '$location', '$experience', '$skills', '$ug', '$pg')";
+            $query_seeker = "INSERT INTO jobseeker (log_id, name, onboarding_step) VALUES ($log_id, '', 0)";
             if (mysqli_query($db1, $query_seeker)) {
                 echo json_encode(["success" => true, "message" => "Registered successfully. You can now login."]);
             } else {

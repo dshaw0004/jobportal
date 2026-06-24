@@ -144,7 +144,7 @@ DROP TABLE IF EXISTS `jobseeker`;
 CREATE TABLE IF NOT EXISTS `jobseeker` (
   `user_id` int(20) NOT NULL AUTO_INCREMENT,
   `log_id` int(20) DEFAULT NULL,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `location` varchar(200) DEFAULT NULL,
   `experience` varchar(100) DEFAULT NULL,
@@ -155,6 +155,11 @@ CREATE TABLE IF NOT EXISTS `jobseeker` (
   `dob` varchar(50) DEFAULT NULL,
   `Resume` varchar(100) DEFAULT NULL,
   `photo` varchar(200) DEFAULT NULL,
+  `about_me` text DEFAULT NULL,
+  `sector_reason` text DEFAULT NULL,
+  `scenario_evaluation` text DEFAULT NULL,
+  `onboarding_step` int(11) DEFAULT 0,
+  `chat_history` text DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   KEY `log_id` (`log_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
