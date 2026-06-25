@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Search,
   MapPin,
@@ -26,9 +27,7 @@ interface Job {
   logo: string | null;
 }
 
-interface LandingPageProps {
-  onNavigate: (view: string) => void;
-}
+
 
 const CATEGORIES = [
   { label: "Software & IT", icon: "💻", count: "1.2k+" },
@@ -48,7 +47,8 @@ const STATS = [
   { value: "98%", label: "Satisfaction Rate", icon: TrendingUp },
 ]
 
-export function LandingPage({ onNavigate }: LandingPageProps) {
+export function LandingPage() {
+  const navigate = useNavigate()
   const [keyword, setKeyword] = useState("")
   const [jobs, setJobs] = useState<Job[]>([])
   const [recentJobs, setRecentJobs] = useState<Job[]>([])
@@ -184,7 +184,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {jobs.map((job) => (
-                <JobCard key={job.jobid} job={job} onNavigate={onNavigate} />
+                <JobCard key={job.jobid} job={job} />
               ))}
             </div>
           )}
@@ -224,7 +224,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
             <p className="text-muted-foreground text-sm font-light mt-1">Freshly posted vacancies — updated daily</p>
           </div>
           <button
-            onClick={() => onNavigate("auth")}
+            onClick={() => navigate("/auth")}
             className="hidden sm:flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
           >
             View all <ChevronRight className="h-3 w-3" />
@@ -236,7 +236,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
         ) : (
           <div className="flex flex-col gap-3">
             {recentJobs.slice(0, 6).map((job) => (
-              <JobRow key={job.jobid} job={job} onNavigate={onNavigate} />
+              <JobRow key={job.jobid} job={job} />
             ))}
           </div>
         )}
@@ -270,13 +270,13 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
 
           <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={() => onNavigate("auth")}
+              onClick={() => navigate("/auth")}
               className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm rounded-xl shadow-md transition"
             >
               Get Started as Jobseeker
             </button>
             <button
-              onClick={() => onNavigate("auth")}
+              onClick={() => navigate("/auth")}
               className="px-8 py-3 border border-border bg-background hover:bg-accent text-foreground font-semibold text-sm rounded-xl transition"
             >
               Post a Job as Employer
@@ -397,7 +397,8 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
 }
 
 /* ── Reusable Job Card (search results) ─────────────────── */
-function JobCard({ job, onNavigate }: { job: Job; onNavigate: (v: string) => void }) {
+function JobCard({ job }: { job: Job }) {
+  const navigate = useNavigate()
   return (
     <div className="bg-background border border-border hover:border-indigo-500/30 rounded-2xl p-5 shadow-sm transition duration-200 flex flex-col justify-between gap-4">
       <div>
@@ -419,7 +420,7 @@ function JobCard({ job, onNavigate }: { job: Job; onNavigate: (v: string) => voi
           <span className="flex items-center gap-1"><Clock className="h-3 w-3 text-indigo-500" />{job.postdate}</span>
         </div>
         <button
-          onClick={() => onNavigate("auth")}
+          onClick={() => navigate("/auth")}
           className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold flex items-center gap-0.5"
         >
           Apply <ArrowRight className="h-3 w-3" />
@@ -430,7 +431,8 @@ function JobCard({ job, onNavigate }: { job: Job; onNavigate: (v: string) => voi
 }
 
 /* ── Reusable Job Row (recent jobs list) ─────────────────── */
-function JobRow({ job, onNavigate }: { job: Job; onNavigate: (v: string) => void }) {
+function JobRow({ job }: { job: Job }) {
+  const navigate = useNavigate()
   return (
     <div className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-background border border-border hover:border-indigo-500/30 rounded-2xl px-5 py-4 transition duration-200">
       <div className="flex items-start gap-4 flex-1 min-w-0">
@@ -451,7 +453,7 @@ function JobRow({ job, onNavigate }: { job: Job; onNavigate: (v: string) => void
           {job.basicpay}
         </span>
         <button
-          onClick={() => onNavigate("auth")}
+          onClick={() => navigate("/auth")}
           className="px-4 py-1.5 border border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500 hover:text-white hover:border-indigo-500 font-semibold text-xs rounded-lg transition duration-200"
         >
           Apply

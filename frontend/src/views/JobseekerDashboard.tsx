@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "@/contexts/AuthContext"
 import { LocationSelector } from "@/components/LocationSelector"
 import { User, CheckCircle, Search, Clock, Award, LogOut, Upload, Settings } from "lucide-react"
 
-interface JobseekerDashboardProps {
-  user: any;
-  onLogout: () => void;
-}
+
 
 interface Job {
   jobid: string;
@@ -20,10 +19,14 @@ interface Job {
   has_applied?: boolean;
 }
 
+
 import { InterviewChat } from "./InterviewChat"
 
-export function JobseekerDashboard({ user, onLogout }: JobseekerDashboardProps) {
+export function JobseekerDashboard() {
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<"interview" | "profile" | "recommended" | "search" | "applied" | "shortlisted" | "settings">("profile")
+
   const [profile, setProfile] = useState<any>(null)
   const [recommendedJobs, setRecommendedJobs] = useState<Job[]>([])
   const [appliedJobs, setAppliedJobs] = useState<any[]>([])
@@ -224,7 +227,8 @@ export function JobseekerDashboard({ user, onLogout }: JobseekerDashboardProps) 
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          onLogout()
+          logout()
+          navigate("/")
         } else {
           showAlert("error", data.message || "Failed to delete account")
         }
@@ -415,7 +419,7 @@ export function JobseekerDashboard({ user, onLogout }: JobseekerDashboardProps) 
           </button>
           <div className="h-px bg-border my-2" />
           <button
-            onClick={onLogout}
+            onClick={() => { logout(); navigate("/") }}
             className="w-full text-left px-4 py-2.5 text-xs font-semibold text-rose-500 hover:bg-rose-500/10 rounded-xl flex items-center gap-3 transition"
           >
             <LogOut className="h-4 w-4" /> Sign Out
