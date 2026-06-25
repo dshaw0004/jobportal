@@ -115,7 +115,7 @@ The design system is engineered for a premium professional ecosystem, specifical
 The visual style is **Corporate Modern with a Soft Edge**. It utilizes a clean white foundation, sophisticated professional blues, and subtle depth cues. The interface aims to evoke a sense of calm productivity, making the high-stakes task of job searching feel managed and premium.
 
 ## Colors
-The palette is anchored by **Nova Blue** (#1A73E8), a vibrant yet professional primary color that signals technology and reliability.
+The palette is anchored by **Nova Blue** (#1A73E8), a vibrant yet professional primary color that signals technology and reliability. 
 
 - **Primary:** Used for main actions, active states, and brand identifiers.
 - **Secondary:** A deeper navy for contrast in navigation and footers.
@@ -123,9 +123,9 @@ The palette is anchored by **Nova Blue** (#1A73E8), a vibrant yet professional p
 - **Neutrals:** An expansive range of Slate Grays. `Neutral-50` and `Neutral-100` are used for background zoning to prevent a "flat" white look.
 
 ## Typography
-The system uses a paired sans-serif approach to balance character with utility.
+The system uses a paired sans-serif approach to balance character with utility. 
 
-**Hanken Grotesk** is used for headlines to provide a sharp, contemporary "tech-startup" edge. Its geometry is precise and modern. **Inter** is used for all body copy and functional UI labels, selected for its world-class legibility in data-heavy environments like job descriptions and candidate dashboards.
+**Hanken Grotesk** is used for headlines to provide a sharp, contemporary "tech-startup" edge. Its geometry is precise and modern. **Inter** is used for all body copy and functional UI labels, selected for its world-class legibility in data-heavy environments like job descriptions and candidate dashboards. 
 
 Visual hierarchy is maintained through strict weight differentiation: Headlines use `SemiBold (600)` or `Bold (700)`, while body copy stays at `Regular (400)` to ensure long-form reading comfort.
 
@@ -133,7 +133,7 @@ Visual hierarchy is maintained through strict weight differentiation: Headlines 
 The layout follows a **Fixed-Fluid Hybrid** model. Content is centered within a 1280px max-width container for desktop viewing to maintain focus.
 
 - **Grid:** A 12-column grid is used for desktop, 8-column for tablet, and 4-column for mobile.
-- **Rhythm:** An 8px linear scale governs all padding and margins.
+- **Rhythm:** An 8px linear scale governs all padding and margins. 
 - **Zoning:** Use `xl` (40px) spacing between major sections (e.g., Header to Search Bar). Use `md` (16px) for internal card padding to maintain a compact, professional information density.
 
 ## Elevation & Depth
@@ -146,7 +146,7 @@ Depth is created using **Ambient Shadows** rather than heavy lines. This creates
 Avoid heavy borders. Use 1px `Neutral-100` strokes only when elements are adjacent on the same elevation level.
 
 ## Shapes
-The shape language is defined by **Rounded (Option 2)** geometry. Standard containers and cards utilize a **12px - 16px radius**.
+The shape language is defined by **Rounded (Option 2)** geometry. Standard containers and cards utilize a **12px - 16px radius**. 
 
 This specific curvature is soft enough to feel approachable and high-end, but geometric enough to maintain a professional "SaaS" architectural feel. Small elements like tags and chips should use the `rounded-lg` (16px) or full pill-shape to distinguish them from structural containers.
 
@@ -166,5 +166,5 @@ This specific curvature is soft enough to feel approachable and high-end, but ge
 - **Premium Badge:** A small, high-contrast tag using a gradient of `Secondary` to `Primary` blue to denote sponsored listings.
 
 ### Status Chips
-- Small, uppercase `label-sm` text.
+- Small, uppercase `label-sm` text. 
 - Backgrounds should be 10% opacity versions of the status color (e.g., Light green background with dark green text for "Full Time").
