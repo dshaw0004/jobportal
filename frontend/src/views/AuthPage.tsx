@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
 import { LocationSelector } from "@/components/LocationSelector"
-import { Lock, Mail, User, Phone, Briefcase, FileText, ChevronRight } from "lucide-react"
+import { Lock, Mail, ChevronRight } from "lucide-react"
 
 
 
@@ -14,22 +14,18 @@ export function AuthPage() {
   const [successMsg, setSuccessMsg] = useState("")
   const [loading, setLoading] = useState(false)
 
+  const clearMessages = () => {
+    setErrorMsg("")
+    setSuccessMsg("")
+  }
+
   // Login form state
   const [loginForm, setLoginForm] = useState({ email: "", password: "" })
 
   // Jobseeker registration form state
   const [seekerForm, setSeekerForm] = useState({
     email: "",
-    password: "",
-    name: "",
-    phone: "",
-    experience: "",
-    skills: "",
-    ugcourse: "",
-    pgcourse: "",
-    country: "",
-    state: "",
-    city: ""
+    password: ""
   })
 
   // Employer registration form state
@@ -48,11 +44,6 @@ export function AuthPage() {
     state: "",
     city: ""
   })
-
-  const clearMessages = () => {
-    setErrorMsg("")
-    setSuccessMsg("")
-  }
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -89,11 +80,6 @@ export function AuthPage() {
     e.preventDefault()
     clearMessages()
     
-    if (!seekerForm.country || !seekerForm.state || !seekerForm.city) {
-      setErrorMsg("Please select your country, state, and city.")
-      return;
-    }
-
     setLoading(true)
     fetch("/api/auth.php", {
       method: "POST",
@@ -260,21 +246,6 @@ export function AuthPage() {
           <form onSubmit={handleSeekerRegisterSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Full Name</label>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    placeholder="John Doe"
-                    required
-                    value={seekerForm.name}
-                    onChange={(e) => setSeekerForm({ ...seekerForm, name: e.target.value })}
-                    className="w-full bg-background border border-border rounded-lg pl-10 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Email Address</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -288,9 +259,7 @@ export function AuthPage() {
                   />
                 </div>
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Password</label>
                 <div className="relative">
@@ -305,99 +274,7 @@ export function AuthPage() {
                   />
                 </div>
               </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Phone Number</label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    placeholder="91xxxxxxxx"
-                    required
-                    value={seekerForm.phone}
-                    onChange={(e) => setSeekerForm({ ...seekerForm, phone: e.target.value })}
-                    className="w-full bg-background border border-border rounded-lg pl-10 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
-                  />
-                </div>
-              </div>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Experience (Years)</label>
-                <div className="relative">
-                  <Briefcase className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    placeholder="e.g. 3"
-                    required
-                    value={seekerForm.experience}
-                    onChange={(e) => setSeekerForm({ ...seekerForm, experience: e.target.value })}
-                    className="w-full bg-background border border-border rounded-lg pl-10 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Key Skills</label>
-                <div className="relative">
-                  <FileText className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="text"
-                    placeholder="e.g. React, PHP, SQL"
-                    required
-                    value={seekerForm.skills}
-                    onChange={(e) => setSeekerForm({ ...seekerForm, skills: e.target.value })}
-                    className="w-full bg-background border border-border rounded-lg pl-10 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">UG Course</label>
-                <select
-                  required
-                  value={seekerForm.ugcourse}
-                  onChange={(e) => setSeekerForm({ ...seekerForm, ugcourse: e.target.value })}
-                  className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
-                >
-                  <option value="">Select UG Qualification</option>
-                  <option value="B.Tech/B.E.">B.Tech/B.E.</option>
-                  <option value="B.C.A.">B.C.A.</option>
-                  <option value="B.Sc.">B.Sc.</option>
-                  <option value="B.A.">B.A.</option>
-                  <option value="B.Com.">B.Com.</option>
-                  <option value="Not Pursuing Graduation">Not Pursuing Graduation</option>
-                </select>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">PG Course</label>
-                <select
-                  required
-                  value={seekerForm.pgcourse}
-                  onChange={(e) => setSeekerForm({ ...seekerForm, pgcourse: e.target.value })}
-                  className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
-                >
-                  <option value="">Select PG Qualification</option>
-                  <option value="M.Tech">M.Tech</option>
-                  <option value="M.C.A.">M.C.A.</option>
-                  <option value="MBA/PGDM">MBA/PGDM</option>
-                  <option value="M.Sc.">M.Sc.</option>
-                  <option value="CA">CA</option>
-                  <option value="Not Pursuing Post Graduation">Not Pursuing Post Graduation</option>
-                </select>
-              </div>
-            </div>
-
-            <LocationSelector
-              required
-              onLocationChange={(country, state, city) => {
-                setSeekerForm({ ...seekerForm, country, state, city })
-              }}
-            />
 
             <button
               type="submit"

@@ -19,10 +19,14 @@ interface Job {
   has_applied?: boolean;
 }
 
+
+import { InterviewChat } from "./InterviewChat"
+
 export function JobseekerDashboard() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const [activeTab, setActiveTab] = useState<"profile" | "recommended" | "search" | "applied" | "shortlisted" | "settings">("profile")
+  const [activeTab, setActiveTab] = useState<"interview" | "profile" | "recommended" | "search" | "applied" | "shortlisted" | "settings">("profile")
+
   const [profile, setProfile] = useState<any>(null)
   const [recommendedJobs, setRecommendedJobs] = useState<Job[]>([])
   const [appliedJobs, setAppliedJobs] = useState<any[]>([])
@@ -64,12 +68,15 @@ export function JobseekerDashboard() {
   }
 
   // Load profile data
-  const fetchProfile = () => {
+  const fetchProfile = (isInitial = false) => {
     fetch("/api/jobseeker.php?action=profile")
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           setProfile(data.profile)
+          if (isInitial && data.profile.onboarding_step < 7 && activeTab !== "interview") {
+             setActiveTab("interview")
+          }
           setProfileForm({
             name: data.profile.name || "",
             phone: data.profile.phone || "",
@@ -89,11 +96,13 @@ export function JobseekerDashboard() {
 
   // Fetch lists based on active tab
   useEffect(() => {
-    fetchProfile()
+    fetchProfile(true)
   }, [])
 
   useEffect(() => {
-    if (activeTab === "recommended") {
+    if (activeTab === "profile") {
+      fetchProfile(false)
+    } else if (activeTab === "recommended") {
       fetch("/api/jobseeker.php?action=recommended")
         .then((res) => res.json())
         .then((data) => {
@@ -352,6 +361,16 @@ export function JobseekerDashboard() {
 
         {/* Navigation list */}
         <nav className="flex flex-col gap-1.5 bg-card/35 backdrop-blur-sm border border-border/50 p-2 rounded-2xl">
+          {profile && profile.onboarding_step < 7 && (
+            <button
+              onClick={() => setActiveTab("interview")}
+              className={`w-full text-left px-4 py-2.5 text-xs font-semibold rounded-xl flex items-center gap-3 transition ${
+                activeTab === "interview" ? "bg-indigo-600 text-white" : "text-indigo-500 hover:bg-indigo-500/10"
+              }`}
+            >
+              <CheckCircle className="h-4 w-4" /> Complete Setup
+            </button>
+          )}
           <button
             onClick={() => setActiveTab("profile")}
             className={`w-full text-left px-4 py-2.5 text-xs font-semibold rounded-xl flex items-center gap-3 transition ${
@@ -423,6 +442,16 @@ export function JobseekerDashboard() {
         )}
 
         <div className="bg-card/45 backdrop-blur-md border border-border/60 p-6 md:p-8 rounded-3xl shadow-xl flex-1 flex flex-col">
+          {activeTab === "interview" && (
+            <InterviewChat
+               onSkip={() => setActiveTab("profile")}
+               onComplete={() => {
+                  fetchProfile()
+                  setActiveTab("profile")
+               }}
+            />
+          )}
+
           {activeTab === "settings" && (
             <div className="space-y-6">
               <div>
