@@ -99,7 +99,8 @@ export function InterviewChat({ onSkip, onComplete }: InterviewChatProps) {
         {!isComplete && (
           <button
             onClick={onSkip}
-            className="text-xs font-semibold text-muted-foreground hover:text-foreground transition flex items-center gap-1"
+            disabled={sending}
+            className="text-xs font-semibold text-muted-foreground hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1"
           >
             Skip for now <ChevronRight className="h-3 w-3" />
           </button>

@@ -68,13 +68,13 @@ export function JobseekerDashboard() {
   }
 
   // Load profile data
-  const fetchProfile = () => {
+  const fetchProfile = (isInitial = false) => {
     fetch("/api/jobseeker.php?action=profile")
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           setProfile(data.profile)
-          if (data.profile.onboarding_step < 7 && activeTab !== "interview") {
+          if (isInitial && data.profile.onboarding_step < 7 && activeTab !== "interview") {
              setActiveTab("interview")
           }
           setProfileForm({
@@ -96,11 +96,13 @@ export function JobseekerDashboard() {
 
   // Fetch lists based on active tab
   useEffect(() => {
-    fetchProfile()
+    fetchProfile(true)
   }, [])
 
   useEffect(() => {
-    if (activeTab === "recommended") {
+    if (activeTab === "profile") {
+      fetchProfile(false)
+    } else if (activeTab === "recommended") {
       fetch("/api/jobseeker.php?action=recommended")
         .then((res) => res.json())
         .then((data) => {

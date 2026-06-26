@@ -31,6 +31,8 @@ $extracted_data = [
     'name' => $seeker['name'],
     'about_me' => $seeker['about_me'],
     'basic_edu' => $seeker['basic_edu'],
+    'master_edu' => $seeker['master_edu'],
+    'skills' => $seeker['skills'],
     'experience' => $seeker['experience'],
     'sector_reason' => $seeker['sector_reason'],
     'scenario_evaluation' => $seeker['scenario_evaluation']
@@ -38,13 +40,16 @@ $extracted_data = [
 
 $OLLAMA_URL = 'http://localhost:11434/api/chat';
 
-function call_ollama($messages) {
+function call_ollama($messages, $jsonMode = false) {
     global $OLLAMA_URL;
     $data = [
         "model" => "llama3.2:1b",
         "messages" => $messages,
         "stream" => false
     ];
+    if ($jsonMode) {
+        $data["format"] = "json";
+    }
     $ch = curl_init($OLLAMA_URL);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
@@ -104,25 +109,53 @@ if ($action === 'send_message') {
     $message_escaped = mysqli_real_escape_string($db1, $message);
 
     // Use Ollama to extract info
-    $system_prompt = "You are a helpful AI interviewer extracting information from a jobseeker.
-    The current extracted state is: " . json_encode($extracted_data) . "
-    Based on the conversational history below, if they provided any missing information (name, about_me, basic_edu (academic info), experience (past work), sector_reason (why they selected this specific sector to work), scenario_evaluation (scenario evaluating team collaboration skills)), respond ONLY with a JSON object containing the updated fields. If no new information was provided, respond with an empty JSON object {}. Do not include any other text.";
+    $system_prompt = "You are a data extraction bot. Your job is to extract candidate details from the conversation.
+Analyze the conversation history. Based ONLY on what the user has said, extract information for the following fields:
+- 'name': Candidate's full name.
+- 'basic_edu': Candidate's university degree or academic qualification. Must be exactly one of: \"B.Tech/B.E.\", \"B.C.A.\", \"B.Sc.\", \"B.A.\", \"B.Com.\", \"Not Pursuing Graduation\". Map their education level to the best fit.
+- 'master_edu': Candidate's postgraduate degree. Must be exactly one of: \"M.Tech\", \"M.C.A.\", \"MBA/PGDM\", \"M.Sc.\", \"CA\", \"Not Pursuing Post Graduation\". Map their postgraduate level to the best fit.
+- 'skills': Candidate's technical or professional skills. E.g., \"React, Node.js, PHP\".
+- 'experience': Candidate's years of experience or work history.
+- 'sector_reason': Why the candidate chose this industry/sector.
+- 'scenario_evaluation': Candidate's answer to the teamwork/behavioral question.
+
+Rules:
+1. Only extract a field if the candidate explicitly provided it in their messages.
+2. The value MUST be a clean string. Do NOT use arrays, lists, or objects.
+3. If a field was not mentioned or is not in the conversation, omit it from the JSON.
+4. Do NOT output any description, preamble, or markdown. Output ONLY a valid JSON object.";
 
     $extract_messages = $chat_history;
     array_unshift($extract_messages, ["role" => "system", "content" => $system_prompt]);
 
-    $extract_response = call_ollama($extract_messages);
+    $extract_response = call_ollama($extract_messages, true);
     $new_data_str = $extract_response['message']['content'] ?? "{}";
 
-    // Clean up response if model added markdown
-    $new_data_str = str_replace(['```json', '```'], '', $new_data_str);
-    $new_data = json_decode(trim($new_data_str), true);
+    // Clean up response: locate the first '{' and the last '}' to extract raw JSON
+    $start_pos = strpos($new_data_str, '{');
+    $end_pos = strrpos($new_data_str, '}');
+    if ($start_pos !== false && $end_pos !== false && $end_pos >= $start_pos) {
+        $json_part = substr($new_data_str, $start_pos, $end_pos - $start_pos + 1);
+        $new_data = json_decode(trim($json_part), true);
+    } else {
+        $new_data_str_cleaned = str_replace(['```json', '```'], '', $new_data_str);
+        $new_data = json_decode(trim($new_data_str_cleaned), true);
+    }
 
     if (is_array($new_data)) {
         foreach ($new_data as $key => $val) {
             if (array_key_exists($key, $extracted_data) && !empty($val)) {
-                $extracted_data[$key] = $val;
-                $val_escaped = mysqli_real_escape_string($db1, $val);
+                if (is_array($val)) {
+                    // If it is a sequential array, implode it. Otherwise, JSON encode it.
+                    if (array_keys($val) === range(0, count($val) - 1)) {
+                        $val = implode(', ', $val);
+                    } else {
+                        $val = json_encode($val, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+                    }
+                }
+                $val_str = (string)$val;
+                $extracted_data[$key] = $val_str;
+                $val_escaped = mysqli_real_escape_string($db1, $val_str);
                 mysqli_query($db1, "UPDATE jobseeker SET $key = '$val_escaped' WHERE log_id = $log_id");
             }
         }
