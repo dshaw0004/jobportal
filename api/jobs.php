@@ -67,7 +67,7 @@ if ($method === 'GET') {
                       JOIN employer ON jobs.eid = employer.eid 
                       WHERE jobs.title LIKE '%$keyword%' 
                          OR employer.ename LIKE '%$keyword%' 
-                         OR jobs.jprofile LIKE '%$keyword%'";
+                         OR jobs.profile LIKE '%$keyword%'";
         } else {
             // Advanced Search
             $clauses = [];
@@ -81,7 +81,7 @@ if ($method === 'GET') {
                 $clauses[] = "jobs.title LIKE '%$desig%'";
             }
             if ($skills !== '') {
-                $clauses[] = "jobs.jprofile LIKE '%$skills%'";
+                $clauses[] = "jobs.profile LIKE '%$skills%'";
             }
             if ($industry !== '') {
                 $clauses[] = "jobs.industry LIKE '%$industry%'";

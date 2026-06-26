@@ -116,6 +116,78 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+
+    /* Redesign Colors */
+    --color-on-error-container: #93000a;
+    --color-secondary: #2b5bb5;
+    --color-surface-container-highest: #e0e2ec;
+    --color-tertiary-fixed-dim: #ffb691;
+    --color-background: #f9f9ff;
+    --color-error-container: #ffdad6;
+    --color-surface: #f9f9ff;
+    --color-primary: #005bbf;
+    --color-inverse-on-surface: #eff0fa;
+    --color-surface-bright: #f9f9ff;
+    --color-on-surface: #191c23;
+    --color-tertiary-container: #c55500;
+    --color-on-error: #ffffff;
+    --color-outline-variant: #c1c6d6;
+    --color-on-tertiary: #ffffff;
+    --color-secondary-fixed: #d9e2ff;
+    --color-inverse-surface: #2d3038;
+    --color-tertiary-fixed: #ffdbcb;
+    --color-surface-tint: #005bc0;
+    --color-on-secondary: #ffffff;
+    --color-on-primary-fixed-variant: #004493;
+    --color-surface-container-high: #e6e8f2;
+    --color-secondary-container: #759efd;
+    --color-primary-fixed: #d8e2ff;
+    --color-on-primary-fixed: #001a41;
+    --color-on-tertiary-fixed-variant: #783100;
+    --color-secondary-fixed-dim: #b0c6ff;
+    --color-on-primary-container: #ffffff;
+    --color-surface-dim: #d8d9e3;
+    --color-on-surface-variant: #414754;
+    --color-on-primary: #ffffff;
+    --color-on-secondary-fixed: #001945;
+    --color-on-tertiary-fixed: #341100;
+    --color-primary-fixed-dim: #adc7ff;
+    --color-on-secondary-fixed-variant: #00429c;
+    --color-error: #ba1a1a;
+    --color-tertiary: #9e4300;
+    --color-surface-variant: #e0e2ec;
+    --color-primary-container: #1a73e8;
+    --color-outline: #727785;
+    --color-on-secondary-container: #00337c;
+    --color-surface-container: #ecedf7;
+    --color-inverse-primary: #adc7ff;
+    --color-surface-container-lowest: #ffffff;
+    --color-on-background: #191c23;
+    --color-surface-container-low: #f2f3fd;
+    --color-on-tertiary-container: #0e0200;
+
+    /* Redesign Fonts */
+    --font-headline: "Hanken Grotesk", sans-serif;
+    --font-body: "Inter", sans-serif;
+
+    /* Redesign Spacing */
+    --spacing-xs: 4px;
+    --spacing-md: 16px;
+    --spacing-base: 4px;
+    --spacing-xl: 40px;
+    --spacing-gutter: 24px;
+    --spacing-sm: 8px;
+    --spacing-container-max: 1280px;
+    --spacing-lg: 24px;
+
+    /* Redesign Font Sizes */
+    --font-size-display-lg: 3.5rem;
+    --font-size-headline-lg: 2rem;
+    --font-size-headline-md: 1.5rem;
+    --font-size-body-lg: 1.125rem;
+    --font-size-body-md: 1rem;
+    --font-size-label-md: 0.875rem;
+    --font-size-label-sm: 0.75rem;
 }
 
 @layer base {
